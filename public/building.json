@@ -1,0 +1,99 @@
+{
+  "meta": {
+    "id": "devfest-hq",
+    "name": { "en": "DevFest Convention Centre", "bn": "ডেভফেস্ট কনভেনশন সেন্টার" },
+    "level": "L2",
+    "version": 1
+  },
+  "bounds": { "width": 1200, "height": 760 },
+  "initial_state": {
+    "start_node_id": "room_102",
+    "blocked_nodes": [],
+    "blocked_edges": [],
+    "closed_exits": []
+  },
+  "nodes": [
+    { "id": "room_101", "type": "room", "x": 330, "y": 170, "capacity": 40, "label": { "en": "Room 101", "bn": "কক্ষ ১০১" } },
+    { "id": "room_102", "type": "room", "x": 575, "y": 170, "capacity": 60, "label": { "en": "Room 102", "bn": "কক্ষ ১০২" } },
+    { "id": "room_103", "type": "room", "x": 820, "y": 170, "capacity": 40, "label": { "en": "Room 103", "bn": "কক্ষ ১০৩" } },
+
+    { "id": "j_t1", "type": "junction", "x": 330, "y": 300, "label": { "en": "Junction T1", "bn": "জংশন টি১" } },
+    { "id": "j_t2", "type": "junction", "x": 575, "y": 300, "label": { "en": "Junction T2", "bn": "জংশন টি২" } },
+    { "id": "j_t3", "type": "junction", "x": 820, "y": 300, "label": { "en": "Junction T3", "bn": "জংশন টি৩" } },
+
+    { "id": "j_w", "type": "junction", "x": 200, "y": 420, "label": { "en": "Junction W", "bn": "জংশন ডবলিউ" } },
+    { "id": "j_c1", "type": "junction", "x": 400, "y": 420, "label": { "en": "Junction C1", "bn": "জংশন সি১" } },
+    { "id": "j_c2", "type": "junction", "x": 600, "y": 420, "label": { "en": "Junction C2", "bn": "জংশন সি২" } },
+    { "id": "j_c3", "type": "junction", "x": 800, "y": 420, "label": { "en": "Junction C3", "bn": "জংশন সি৩" } },
+    { "id": "j_e", "type": "junction", "x": 1000, "y": 420, "label": { "en": "Junction E", "bn": "জংশন ইস্ট" } },
+
+    { "id": "j_b1", "type": "junction", "x": 400, "y": 540, "label": { "en": "Junction B1", "bn": "জংশন বি১" } },
+    { "id": "j_b2", "type": "junction", "x": 600, "y": 540, "label": { "en": "Junction B2", "bn": "জংশন বি২" } },
+    { "id": "j_b3", "type": "junction", "x": 800, "y": 540, "label": { "en": "Junction B3", "bn": "জংশন বি৩" } },
+
+    { "id": "room_201", "type": "room", "x": 400, "y": 670, "capacity": 30, "label": { "en": "Room 201", "bn": "কক্ষ ২০১" } },
+    { "id": "room_202", "type": "room", "x": 600, "y": 670, "capacity": 30, "label": { "en": "Room 202", "bn": "কক্ষ ২০২" } },
+    { "id": "room_203", "type": "room", "x": 800, "y": 670, "capacity": 30, "label": { "en": "Room 203", "bn": "কক্ষ ২০৩" } },
+
+    { "id": "exit_a", "type": "exit", "x": 95, "y": 420, "label": { "en": "West Fire Exit", "bn": "পশ্চিম অগ্নি-নির্গমন" } },
+    { "id": "exit_b", "type": "exit", "x": 1105, "y": 420, "label": { "en": "Main Entrance", "bn": "প্রধান প্রবেশপথ" } },
+    { "id": "exit_c", "type": "exit", "x": 575, "y": 60, "label": { "en": "North Emergency Exit", "bn": "উত্তর জরুরি নির্গমন" } }
+  ],
+  "edges": [
+    { "id": "e_101_t1", "from": "room_101", "to": "j_t1", "cost": 4, "label": { "en": "Room 101 doorway", "bn": "কক্ষ ১০১-এর দরজা" } },
+    { "id": "e_102_t2", "from": "room_102", "to": "j_t2", "cost": 4, "label": { "en": "Room 102 doorway", "bn": "কক্ষ ১০২-এর দরজা" } },
+    { "id": "e_103_t3", "from": "room_103", "to": "j_t3", "cost": 4, "label": { "en": "Room 103 doorway", "bn": "কক্ষ ১০৩-এর দরজা" } },
+
+    { "id": "e_t1_t2", "from": "j_t1", "to": "j_t2", "cost": 8, "label": { "en": "North corridor (west section)", "bn": "উত্তর করিডোর (পশ্চিম অংশ)" } },
+    { "id": "e_t2_t3", "from": "j_t2", "to": "j_t3", "cost": 14, "label": { "en": "North corridor (east section)", "bn": "উত্তর করিডোর (পূর্ব অংশ)" } },
+    { "id": "e_t1_c1", "from": "j_t1", "to": "j_c1", "cost": 15, "label": { "en": "North-central connector (west)", "bn": "উত্তর-কেন্দ্র সংযোগ (পশ্চিম)" } },
+    { "id": "e_t2_c2", "from": "j_t2", "to": "j_c2", "cost": 5, "label": { "en": "North-central connector (middle)", "bn": "উত্তর-কেন্দ্র সংযোগ (মাঝামাঝি)" } },
+    { "id": "e_t3_c3", "from": "j_t3", "to": "j_c3", "cost": 5, "label": { "en": "North-central connector (east)", "bn": "উত্তর-কেন্দ্র সংযোগ (পূর্ব)" } },
+
+    { "id": "e_c1_c2", "from": "j_c1", "to": "j_c2", "cost": 10, "label": { "en": "Central corridor (west section)", "bn": "কেন্দ্রীয় করিডোর (পশ্চিম অংশ)" } },
+    { "id": "e_c2_c3", "from": "j_c2", "to": "j_c3", "cost": 10, "label": { "en": "Central corridor (east section)", "bn": "কেন্দ্রীয় করিডোর (পূর্ব অংশ)" } },
+
+    { "id": "e_w_c1", "from": "j_w", "to": "j_c1", "cost": 8, "label": { "en": "West wing link", "bn": "পশ্চিম উইং সংযোগ" } },
+    { "id": "e_c1_b1", "from": "j_c1", "to": "j_b1", "cost": 5, "label": { "en": "Central-south connector (west)", "bn": "কেন্দ্র-দক্ষিণ সংযোগ (পশ্চিম)" } },
+    { "id": "e_c2_b2", "from": "j_c2", "to": "j_b2", "cost": 5, "label": { "en": "Central-south connector (middle)", "bn": "কেন্দ্র-দক্ষিণ সংযোগ (মাঝামাঝি)" } },
+    { "id": "e_c3_b3", "from": "j_c3", "to": "j_b3", "cost": 5, "label": { "en": "Central-south connector (east)", "bn": "কেন্দ্র-দক্ষিণ সংযোগ (পূর্ব)" } },
+    { "id": "e_c3_e", "from": "j_c3", "to": "j_e", "cost": 8, "label": { "en": "East wing link", "bn": "পূর্ব উইং সংযোগ" } },
+
+    { "id": "e_b1_b2", "from": "j_b1", "to": "j_b2", "cost": 10, "label": { "en": "South corridor (west section)", "bn": "দক্ষিণ করিডোর (পশ্চিম অংশ)" } },
+    { "id": "e_b2_b3", "from": "j_b2", "to": "j_b3", "cost": 10, "label": { "en": "South corridor (east section)", "bn": "দক্ষিণ করিডোর (পূর্ব অংশ)" } },
+
+    { "id": "e_201_b1", "from": "room_201", "to": "j_b1", "cost": 4, "label": { "en": "Room 201 doorway", "bn": "কক্ষ ২০১-এর দরজা" } },
+    { "id": "e_202_b2", "from": "room_202", "to": "j_b2", "cost": 4, "label": { "en": "Room 202 doorway", "bn": "কক্ষ ২০২-এর দরজা" } },
+    { "id": "e_203_b3", "from": "room_203", "to": "j_b3", "cost": 4, "label": { "en": "Room 203 doorway", "bn": "কক্ষ ২০৩-এর দরজা" } },
+
+    { "id": "e_w_exit_a", "from": "j_w", "to": "exit_a", "cost": 6, "label": { "en": "West Fire Exit passage", "bn": "পশ্চিম অগ্নি-নির্গমনের গলি" } },
+    { "id": "e_e_exit_b", "from": "j_e", "to": "exit_b", "cost": 6, "label": { "en": "Main Entrance passage", "bn": "প্রধান প্রবেদপথের গলি" } },
+    { "id": "e_t2_exit_c", "from": "j_t2", "to": "exit_c", "cost": 30, "label": { "en": "North Emergency Exit passage", "bn": "উত্তর জরুরি-নির্গমনের গলি" } }
+  ],
+  "scenarios": [
+    {
+      "id": "baseline",
+      "label": { "en": "Baseline (two exits equally close)", "bn": "বেসলাইন (দুটি নির্গমন সমান দূরত্বে)" },
+      "state": { "blocked_nodes": [], "blocked_edges": [], "closed_exits": [] }
+    },
+    {
+      "id": "close_north",
+      "label": { "en": "North exit closed", "bn": "উত্তর প্রস্থান বন্ধ" },
+      "state": { "blocked_nodes": [], "blocked_edges": [], "closed_exits": ["exit_c"] }
+    },
+    {
+      "id": "corridor_cut",
+      "label": { "en": "Central corridor cut", "bn": "কেন্দ্রীয় করিডোর বিচ্ছিন্ন" },
+      "state": { "blocked_nodes": [], "blocked_edges": ["e_t2_c2", "e_c1_c2", "e_c2_c3"], "closed_exits": [] }
+    },
+    {
+      "id": "trap",
+      "label": { "en": "Occupant trapped", "bn": "অবদ্ধ আবাসিক" },
+      "state": {
+        "blocked_nodes": ["j_t2"],
+        "blocked_edges": ["e_102_t2"],
+        "closed_exits": []
+      }
+    }
+  ]
+}

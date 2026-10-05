@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smart Escape — Interactive Evacuation Route Simulator</title>
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <meta
+      name="description"
+      content="Interactive evacuation route simulator: block corridors and rooms, then watch the safest exit recalculate."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="stylesheet" href="./src/styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">▲</span>
+        <div>
+          <h1 data-i18n="app.title">Smart Escape</h1>
+          <p class="brand-sub" data-i18n="app.subtitle">Interactive Evacuation Route Simulator</p>
+        </div>
+      </div>
+
+      <div class="header-meta">
+        <span id="building-name" class="building-name"></span>
+        <button id="reset-btn" class="btn btn-ghost" type="button" data-i18n="action.reset">Reset</button>
+        <button id="lang-toggle" class="btn" type="button" data-i18n="action.lang">বাংলা</button>
+      </div>
+    </header>
+
+    <div id="status" class="status status-loading" role="status" aria-live="polite"></div>
+
+    <main class="layout">
+      <aside id="sidebar" class="sidebar" aria-label="Controls"></aside>
+
+      <section class="map-wrap">
+        <div class="map-scroll">
+          <svg
+            id="map"
+            class="map"
+            xmlns="http://www.w3.org/2000/svg"
+            role="application"
+            aria-label="Building map. Select a room, junction, exit or corridor to inspect it."
+            data-i18n-attr="aria-label:label.mapAria"
+          ></svg>
+        </div>
+        <p class="map-hint" data-i18n="hint.panMap">Swipe the map sideways to see the whole floor. Tap a room, corridor or exit to inspect it.</p>
+      </section>
+    </main>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

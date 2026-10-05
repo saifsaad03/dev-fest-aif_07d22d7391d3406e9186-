@@ -1,0 +1,1202 @@
+:root {
+  --bg: #070d18;
+  --bg-2: #0e1826;
+  --surface: #142238;
+  --surface-2: #1b2d48;
+  --surface-3: #23395a;
+  --line: #24374f;
+  --line-soft: #1b2b41;
+  --text: #eaf1fb;
+  --muted: #93a8c4;
+  --muted-2: #6d829d;
+
+  --accent: #38bdf8;
+  --accent-soft: #0ea5e9;
+  --safe: #22d3a5;
+  --warn: #fbbf24;
+  --danger: #fb7185;
+
+  --room: #60a5fa;
+  --junction: #7c8fa8;
+  --exit: #22d3a5;
+  --blocked: #ef4444;
+
+  --radius: 12px;
+  --radius-sm: 8px;
+  --shadow: 0 10px 30px rgb(0 0 0 / 45%);
+  --shadow-sm: 0 2px 8px rgb(0 0 0 / 35%);
+
+  --font: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-bn: 'Noto Sans Bengali', 'Hind Siliguri', 'Nirmala UI', system-ui, sans-serif;
+}
+
+html[data-locale='bn'] {
+  --font: var(--font-bn);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  /* Stop iOS inflating text in landscape, which breaks the map's label sizes. */
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background:
+    radial-gradient(1100px 600px at 12% -12%, #1b3050 0%, transparent 60%),
+    radial-gradient(900px 500px at 105% 0%, #16304a 0%, transparent 55%),
+    var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: clamp(14.5px, 0.35vw + 13.6px, 16px);
+  line-height: 1.5;
+  overflow-wrap: break-word;
+}
+
+/* ---------- header ---------- */
+
+.app-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 12px;
+  align-items: center;
+  justify-content: space-between;
+  padding: clamp(10px, 1.4vw, 14px) clamp(12px, 1.8vw, 24px);
+  border-bottom: 1px solid var(--line);
+  background: color-mix(in srgb, var(--bg-2) 82%, transparent);
+  backdrop-filter: blur(8px);
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+
+.brand {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  min-width: 0;
+}
+
+.brand > div {
+  min-width: 0;
+}
+
+.brand-mark {
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius);
+  background: linear-gradient(140deg, var(--safe), var(--accent));
+  color: #06251b;
+  font-size: 18px;
+}
+
+.brand h1 {
+  margin: 0;
+  font-size: clamp(16px, 1.4vw, 19px);
+  letter-spacing: 0.2px;
+}
+
+.brand-sub {
+  display: block;
+  margin: 0;
+  color: var(--muted);
+  font-size: clamp(11.5px, 0.9vw, 13px);
+}
+
+.header-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.building-name {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* ---------- buttons ---------- */
+
+.btn {
+  /* manipulation kills the 300ms double-tap-zoom delay on touch. */
+  touch-action: manipulation;
+  min-height: 36px;
+  padding: 7px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+  color: var(--text);
+  font: inherit;
+  font-size: 13.5px;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, transform 0.08s;
+}
+
+.btn:hover:not(:disabled) {
+  background: #263c60;
+  border-color: #35507a;
+}
+
+.btn:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btn-ghost {
+  background: transparent;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ---------- status banner / result card ---------- */
+
+.status {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 22px;
+  align-items: center;
+  padding: 14px 22px;
+  border-bottom: 1px solid var(--line);
+  background: color-mix(in srgb, var(--bg-2) 78%, transparent);
+  backdrop-filter: blur(10px);
+}
+
+.status-lead {
+  display: flex;
+  flex: 1 1 260px;
+  gap: 12px;
+  align-items: center;
+  min-width: 0;
+}
+
+.status-icon {
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.status-title {
+  display: block;
+  font-size: 15.5px;
+  letter-spacing: 0.1px;
+}
+
+.status-detail {
+  display: block;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.metric {
+  display: flex;
+  flex-direction: column;
+  min-width: 92px;
+  padding: 7px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: color-mix(in srgb, var(--surface) 80%, transparent);
+}
+
+.metric-value {
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.metric-label {
+  color: var(--muted-2);
+  font-size: 10.5px;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+}
+
+.status-ok {
+  background: color-mix(in srgb, var(--safe) 12%, var(--bg-2));
+  border-bottom-color: color-mix(in srgb, var(--safe) 35%, var(--line));
+}
+
+.status-ok .status-icon {
+  background: color-mix(in srgb, var(--safe) 22%, transparent);
+  color: var(--safe);
+}
+
+.status-no_route,
+.status-error {
+  background: color-mix(in srgb, var(--danger) 12%, var(--bg-2));
+  border-bottom-color: color-mix(in srgb, var(--danger) 35%, var(--line));
+}
+
+.status-no_route .status-icon,
+.status-error .status-icon {
+  background: color-mix(in srgb, var(--danger) 22%, transparent);
+  color: var(--danger);
+}
+
+.status-start_blocked {
+  background: color-mix(in srgb, var(--warn) 12%, var(--bg-2));
+  border-bottom-color: color-mix(in srgb, var(--warn) 35%, var(--line));
+}
+
+.status-start_blocked .status-icon {
+  background: color-mix(in srgb, var(--warn) 22%, transparent);
+  color: var(--warn);
+}
+
+.status-loading,
+.status-idle,
+.status-unknown_start {
+  background: color-mix(in srgb, var(--accent) 9%, var(--bg-2));
+  border-bottom-color: color-mix(in srgb, var(--accent) 32%, var(--line));
+}
+
+.status-loading .status-icon,
+.status-idle .status-icon,
+.status-unknown_start .status-icon {
+  background: color-mix(in srgb, var(--accent) 20%, transparent);
+  color: var(--accent);
+}
+
+.error-detail {
+  width: 100%;
+  margin: 4px 0 0;
+  padding: 8px 10px;
+  overflow-x: auto;
+  border-radius: 6px;
+  background: #0a0f1a;
+  color: #fecaca;
+  font-size: 12px;
+}
+
+/* ---------- layout ---------- */
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(300px, 350px) minmax(0, 1fr);
+  gap: clamp(12px, 1.4vw, 20px);
+  max-width: 1720px;
+  margin: 0 auto;
+  padding: clamp(12px, 1.6vw, 22px) clamp(12px, 1.8vw, 24px) 32px;
+  align-items: start;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: sticky;
+  top: 18px;
+  /* dvh keeps the sticky column correct while mobile browser chrome slides. */
+  max-height: calc(100vh - 36px);
+  max-height: calc(100dvh - 36px);
+  padding-right: 4px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--surface-3) transparent;
+}
+
+.sidebar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background: var(--surface-3);
+  background-clip: content-box;
+}
+
+.map-wrap {
+  position: relative;
+  /* The map needs to react to the width IT gets, not the viewport width: the
+     two-column tiers hand it anything from 600px to 1300px. */
+  container-type: inline-size;
+  container-name: mapbox;
+  padding: clamp(8px, 1vw, 13px);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: linear-gradient(165deg, var(--bg-2), #0b1524);
+  box-shadow: var(--shadow);
+}
+
+/* Cap the map so it never balloons on wide monitors. */
+.map {
+  display: block;
+  width: 100%;
+  max-width: 1180px;
+  height: auto;
+  margin: 0 auto;
+}
+
+/* Separate scroll layer: a query container cannot be styled by its own
+   container query, so the element that scrolls must sit below the container. */
+.map-scroll {
+  display: block;
+}
+
+/* Only shown when the map is wider than the box holding it. */
+.map-hint {
+  display: none;
+  margin: 8px 0 0;
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  background: color-mix(in srgb, var(--surface-2) 92%, transparent);
+  color: var(--muted);
+  font-size: 11.5px;
+  text-align: center;
+}
+
+/*
+  Too narrow to show the whole 1200-unit floorplan legibly. Squeezing an
+  11.5px label into 600px renders it at ~6px, which nobody can read, so hold
+  the map near its natural scale and let the box scroll sideways instead.
+  940px of container width keeps the effective label size at or above ~8px.
+*/
+@container mapbox (max-width: 940px) {
+  .map-scroll {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .map {
+    min-width: 860px;
+    max-width: none;
+  }
+
+  .map-hint {
+    display: block;
+  }
+}
+
+/* ---------- sidebar panels ---------- */
+
+.panel-section {
+  padding: 13px 15px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--surface) 90%, transparent);
+  box-shadow: var(--shadow-sm);
+}
+
+.panel-section h2 {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin: 0 0 11px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.1px;
+  text-transform: uppercase;
+}
+
+.chip-group {
+  margin-bottom: 11px;
+}
+
+.chip-group:last-of-type {
+  margin-bottom: 13px;
+}
+
+.chip-group h3 {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+  margin: 0 0 6px;
+  color: var(--muted-2);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.count {
+  display: grid;
+  place-items: center;
+  min-width: 19px;
+  height: 19px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: var(--surface-3);
+  color: var(--text);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.chip-group .muted {
+  margin: 0;
+}
+
+.chip {
+  display: inline-flex;
+  gap: 7px;
+  align-items: center;
+  max-width: 100%;
+  margin: 0 5px 5px 0;
+  padding: 4px 4px 4px 10px;
+  border: 1px solid color-mix(in srgb, var(--danger) 45%, var(--line));
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--danger) 14%, transparent);
+  font-size: 12px;
+}
+
+.chip-text {
+  overflow: hidden;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chip-sub {
+  flex: 0 0 auto;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: color-mix(in srgb, #000 28%, transparent);
+  color: var(--muted);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.chip-x {
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  width: 19px;
+  height: 19px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.chip-x:hover {
+  background: var(--danger);
+  color: #fff;
+}
+
+.select {
+  width: 100%;
+  padding: 9px 11px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+  color: var(--text);
+  font: inherit;
+  font-size: 13.5px;
+  cursor: pointer;
+}
+
+.btn-block {
+  display: block;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.btn-danger {
+  border-color: color-mix(in srgb, var(--danger) 55%, var(--line));
+  background: color-mix(in srgb, var(--danger) 22%, var(--surface-2));
+  color: #ffe4e6;
+  font-weight: 600;
+}
+
+.btn-danger:hover:not(:disabled) {
+  border-color: var(--danger);
+  background: color-mix(in srgb, var(--danger) 34%, var(--surface-2));
+}
+
+.btn-danger-ghost {
+  border-color: color-mix(in srgb, var(--safe) 45%, var(--line));
+  background: color-mix(in srgb, var(--safe) 14%, transparent);
+  color: #c9ffe9;
+  font-weight: 600;
+}
+
+.btn-danger-ghost:hover:not(:disabled) {
+  border-color: var(--safe);
+  background: color-mix(in srgb, var(--safe) 24%, transparent);
+}
+
+/* ---------- detail readout ---------- */
+
+.tag {
+  display: inline-block;
+  margin-bottom: 5px;
+  padding: 2px 9px;
+  border-radius: 999px;
+  background: var(--surface-3);
+  color: var(--text);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.tag-room { background: color-mix(in srgb, var(--room) 28%, transparent); color: #dbeafe; }
+.tag-junction { background: color-mix(in srgb, var(--junction) 38%, transparent); color: #e2e8f0; }
+.tag-exit { background: color-mix(in srgb, var(--exit) 26%, transparent); color: #c9ffe9; }
+.tag-corridor { background: color-mix(in srgb, var(--accent) 24%, transparent); color: #d6f0ff; }
+
+.detail-title {
+  margin: 0 0 9px;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.flag {
+  display: inline-block;
+  margin: 0 0 10px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 600;
+}
+
+.flag-route {
+  border: 1px solid color-mix(in srgb, var(--safe) 45%, transparent);
+  background: color-mix(in srgb, var(--safe) 16%, transparent);
+  color: #c9ffe9;
+}
+
+.detail-list {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 5px 14px;
+  margin: 0;
+  padding-top: 9px;
+  border-top: 1px solid var(--line-soft);
+  font-size: 13px;
+}
+
+.detail-list dt {
+  color: var(--muted-2);
+  white-space: nowrap;
+}
+
+.detail-list dd {
+  margin: 0;
+  word-break: break-word;
+}
+
+/* ---------- route steps ---------- */
+
+.route-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: step;
+}
+
+.route-step {
+  position: relative;
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 6px 10px 6px 30px;
+  border-radius: var(--radius-sm);
+  background: color-mix(in srgb, var(--surface-2) 65%, transparent);
+  font-size: 13px;
+  counter-increment: step;
+}
+
+.route-step::before {
+  content: counter(step);
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  width: 16px;
+  transform: translateY(-50%);
+  color: var(--muted-2);
+  font-size: 10.5px;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* Connector line between consecutive steps. */
+.route-step + .route-step::after {
+  content: '';
+  position: absolute;
+  left: 16px;
+  top: -7px;
+  width: 1px;
+  height: 12px;
+  background: color-mix(in srgb, var(--safe) 45%, transparent);
+}
+
+.route-step-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.route-step-cost {
+  flex: 0 0 auto;
+  color: var(--muted-2);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.route-step.is-start {
+  background: color-mix(in srgb, var(--warn) 16%, transparent);
+}
+
+.route-step.is-start .route-step-name {
+  color: #fde68a;
+  font-weight: 700;
+}
+
+.route-step.is-exit {
+  border: 1px solid color-mix(in srgb, var(--safe) 42%, transparent);
+  background: color-mix(in srgb, var(--safe) 15%, transparent);
+}
+
+.route-step.is-exit .route-step-name {
+  color: #c9ffe9;
+  font-weight: 700;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.small {
+  font-size: 12.5px;
+}
+
+.detail-list {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 4px 12px;
+  margin: 0 0 8px;
+  font-size: 13px;
+}
+
+.detail-list dt {
+  color: var(--muted);
+}
+
+.detail-list dd {
+  margin: 0;
+  word-break: break-word;
+}
+
+.legend {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 7px 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 12.5px;
+}
+
+.legend li {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.legend-swatch {
+  flex: 0 0 auto;
+  width: 15px;
+  height: 15px;
+  border-radius: 5px;
+}
+
+.swatch-room {
+  background: var(--room);
+  clip-path: polygon(0 0, 100% 0, 100% 78%, 0 100%);
+}
+
+.swatch-junction {
+  border-radius: 50%;
+  background: var(--junction);
+}
+
+.swatch-exit {
+  border-radius: 50%;
+  background: var(--exit);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--exit) 35%, transparent);
+}
+
+.swatch-start {
+  background: var(--warn);
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+
+.swatch-blocked {
+  background: var(--blocked);
+  transform: rotate(45deg);
+}
+
+.swatch-closed {
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--muted) 55%, transparent);
+  box-shadow: inset 0 0 0 2px var(--muted-2);
+}
+
+.swatch-route {
+  height: 6px;
+  border-radius: 3px;
+  background: var(--safe);
+  box-shadow: 0 0 6px color-mix(in srgb, var(--safe) 60%, transparent);
+}
+
+/* ---------- svg map ---------- */
+
+.edge-line {
+  stroke: #2b3f5e;
+  stroke-linecap: round;
+  cursor: pointer;
+  transition: stroke 0.15s;
+}
+
+.edge {
+  stroke: transparent;
+  cursor: pointer;
+}
+
+.edge:hover + .edge-line,
+.edge:focus-visible + .edge-line {
+  stroke: #6f9ad6;
+}
+
+.edge-line.is-selected {
+  stroke: var(--accent);
+  stroke-width: 7;
+}
+
+.edge.is-blocked + .edge-line,
+.edge-line.is-blocked {
+  stroke: color-mix(in srgb, var(--blocked) 75%, #2a0b0b);
+  stroke-dasharray: 3 7;
+}
+
+.edge-line.is-on-route {
+  stroke: color-mix(in srgb, var(--safe) 55%, #1b2d48);
+  stroke-width: 12;
+}
+
+.edge-cost {
+  fill: var(--muted-2);
+  font-size: 11px;
+  font-weight: 600;
+  font-family: var(--font);
+  pointer-events: none;
+  paint-order: stroke;
+  stroke: #0b1220;
+  stroke-width: 3px;
+}
+
+.edge-cost.is-blocked {
+  fill: var(--blocked);
+  text-decoration: line-through;
+}
+
+.edge-cost.is-on-route,
+.edge-cost.is-selected {
+  fill: var(--safe);
+  font-weight: 700;
+}
+
+.node {
+  cursor: pointer;
+}
+
+.node-shape {
+  stroke: #0b1220;
+  stroke-width: 2;
+  transition: fill 0.15s, opacity 0.15s, stroke 0.15s;
+}
+
+.node-room .node-shape {
+  fill: var(--room);
+}
+
+.node-junction .node-shape {
+  fill: var(--junction);
+}
+
+.node-exit .node-shape {
+  fill: var(--exit);
+  stroke: #08251d;
+  stroke-width: 2.5;
+}
+
+.node-label {
+  fill: var(--muted);
+  font-size: 11.5px;
+  font-family: var(--font);
+  pointer-events: none;
+  paint-order: stroke;
+  stroke: #0b1220;
+  stroke-width: 3.5px;
+}
+
+.node-value {
+  fill: #f2f7ff;
+  font-size: 11px;
+  font-weight: 700;
+  font-family: var(--font);
+  pointer-events: none;
+}
+
+.node:hover .node-shape {
+  stroke: var(--accent);
+  stroke-width: 3;
+}
+
+.node.is-selected .node-shape {
+  stroke: var(--accent);
+  stroke-width: 4;
+}
+
+.node.is-selected .node-label {
+  fill: var(--accent);
+  font-weight: 700;
+}
+
+.node.is-start .node-shape {
+  fill: var(--warn);
+  stroke: #fff;
+  stroke-width: 3;
+}
+
+.node.is-on-route .node-shape {
+  stroke: var(--safe);
+  stroke-width: 3.5;
+}
+
+.node.is-on-route .node-label {
+  fill: var(--text);
+}
+
+.node.is-blocked .node-shape {
+  fill: var(--blocked);
+  opacity: 0.8;
+}
+
+.node.is-blocked .node-shape {
+  /* Crossed-out square reads as "blocked" without relying on colour alone. */
+  stroke: #fecaca;
+  stroke-dasharray: 5 3;
+}
+
+.node.is-blocked .node-value,
+.node.is-blocked .node-label {
+  fill: #fecaca;
+}
+
+.node.is-closed .node-shape {
+  fill: var(--muted-2);
+  opacity: 0.5;
+  stroke-dasharray: 4 3;
+}
+
+.node.is-closed .node-value {
+  fill: #cbd5e1;
+}
+
+.route-seg {
+  stroke: var(--safe);
+  stroke-width: 7;
+  stroke-linecap: round;
+  opacity: 0.95;
+  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--safe) 60%, transparent));
+  stroke-dasharray: 14 10;
+  animation: flow 1.1s linear infinite;
+}
+
+@keyframes flow {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .route-seg {
+    animation: none;
+    stroke-dasharray: none;
+  }
+}
+
+/* ============================================================
+   Responsive
+   Base rules target a desktop viewport. Each block below peels
+   one tier off as space runs out, and the last one handles
+   touch input, which is about input size rather than width.
+   ============================================================ */
+
+/* --- Large desktop: give the controls more room to breathe --- */
+@media (min-width: 1500px) {
+  .layout {
+    grid-template-columns: 380px minmax(0, 1fr);
+  }
+
+  .legend {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    font-size: 13px;
+  }
+}
+
+/* --- Tablet / small laptop: the two columns get cramped --- */
+@media (max-width: 1080px) {
+  .layout {
+    grid-template-columns: minmax(260px, 300px) minmax(0, 1fr);
+  }
+
+  .detail-list {
+    grid-template-columns: 1fr;
+    gap: 1px 0;
+  }
+
+  .detail-list dt {
+    margin-top: 7px;
+    font-size: 11px;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+  }
+
+  .detail-list dt:first-child {
+    margin-top: 0;
+  }
+}
+
+/* --- One column. Map first, controls underneath. --- */
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  /* Let the sidebar's cards become direct grid items so the legend can be
+     ordered above the map. It is a sibling of .map-wrap in the DOM, which a
+     plain flexbox/grid `order` could never reach. */
+  .sidebar {
+    display: contents;
+  }
+
+  /* The legend explains the map's colours, so it belongs next to the map:
+     above it once the columns collapse to one. */
+  #legend-card {
+    order: -2;
+  }
+
+  /* In DOM order the sidebar comes first; on a phone you want to see the
+     floorplan immediately, not scroll past five cards to reach it. */
+  .map-wrap {
+    order: -1;
+  }
+
+  /* The legend now leads the page, so give it the least vertical weight that
+     still stays readable: a compact wrapping key rather than a 2x4 grid. */
+  #legend-card {
+    padding: 10px 12px;
+  }
+
+  #legend-card h2 {
+    margin-bottom: 7px;
+    font-size: 11px;
+  }
+
+  #legend-card .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 12px;
+    font-size: 12px;
+  }
+
+  #legend-card .legend li {
+    gap: 6px;
+  }
+
+  .status {
+    padding: 12px 16px;
+    gap: 10px 14px;
+  }
+
+  .status-lead {
+    flex: 1 1 100%;
+  }
+
+  /* Metrics sit in their own stretchable strip rather than squeezing. */
+  .metric {
+    flex: 1 1 auto;
+    min-width: 84px;
+    padding: 6px 11px;
+  }
+}
+
+/* --- Phone: trim the chrome that a tablet can afford --- */
+@media (max-width: 760px) {
+  .layout {
+    padding-bottom: 24px;
+  }
+
+  .app-header {
+    gap: 8px 10px;
+  }
+
+  .header-meta {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .building-name {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .legend {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .route-step {
+    padding: 8px 10px 8px 30px;
+  }
+
+  /* Long corridor names such as "North-central connector (middle)" need room. */
+  .chip {
+    max-width: 100%;
+  }
+
+  .chip-text {
+    white-space: normal;
+  }
+}
+
+/* --- Very narrow: single-column detail rows --- */
+@media (max-width: 400px) {
+  .status-title {
+    font-size: 14.5px;
+  }
+
+  /* Keep the legend to two rows on the smallest phones: it leads the page,
+     so every pixel it costs is a pixel of map the user has not seen yet. */
+  #legend-card {
+    padding: 9px 11px;
+  }
+
+  #legend-card .legend {
+    gap: 5px 10px;
+    font-size: 11.5px;
+  }
+
+  #legend-card .legend li {
+    gap: 5px;
+  }
+
+  #legend-card .legend-swatch {
+    width: 13px;
+    height: 13px;
+  }
+
+  .metric {
+    min-width: 0;
+    padding: 6px 9px;
+  }
+
+  .metric-value {
+    font-size: 13.5px;
+  }
+
+  .metric-label {
+    font-size: 9.5px;
+  }
+
+  .brand-sub {
+    display: none;
+  }
+
+  .panel-section {
+    padding: 11px 12px;
+  }
+}
+
+/* --- Short landscape windows (phones turned sideways) --- */
+@media (max-height: 520px) and (orientation: landscape) {
+  .app-header {
+    position: static;
+  }
+
+  .sidebar {
+    position: static;
+    max-height: none;
+  }
+}
+
+/* --- Touch input: hit targets sized for fingers, not cursors --- */
+@media (pointer: coarse) {
+  .btn {
+    min-height: 42px;
+    padding: 9px 16px;
+  }
+
+  .select {
+    min-height: 44px;
+  }
+
+  .chip {
+    padding: 6px 5px 6px 12px;
+  }
+
+  .chip-x {
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+  }
+
+  .map .node-shape {
+    stroke-width: 2.5;
+  }
+
+  /* Fatten the invisible corridor hit lines so they are tappable. */
+  .edge {
+    stroke-width: 26 !important;
+  }
+
+  .detail-list {
+    font-size: 13.5px;
+  }
+}
+
+/* --- Short landscape on touch: pull the map above the fold --- */
+@media (max-height: 520px) and (orientation: landscape) and (pointer: coarse) {
+  .map-wrap {
+    order: -1;
+  }
+}
