@@ -1,5 +1,5 @@
 # Smart Escape
-
+Live link https://emevacuation.netlify.app/
 **Interactive Evacuation Route Simulator** — close a room, block a corridor or shut an exit, and watch the safest route to safety recalculate instantly.
 
 A DevFest challenge project. Vanilla JavaScript + Vite, no UI framework.
@@ -28,7 +28,7 @@ npm install
 npm run dev
 ```
 
-Vite serves the app at <http://localhost:5173/> and opens it automatically.
+
 
 | Script | What it does |
 | --- | --- |
